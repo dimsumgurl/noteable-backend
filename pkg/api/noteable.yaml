@@ -1,0 +1,70 @@
+swagger: "2.0"
+
+info:
+  title: Noteable
+  description: API for the Noteable
+  version: 1.0.0
+
+basePath: "/"
+consumes:
+  - application/json
+produces:
+  - application/json
+
+# securityDefinitions:
+#   Bearer:
+#     type: apiKey
+#     in: header
+#     name: X-TOKEN
+
+paths:
+  /version:
+    get:
+      summary: Returns the Noteable version
+      tags:
+        - Version
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: "#/definitions/version"
+          
+  # /login:
+  #   post:
+  #     summary: Authenticate a user
+  #     tags:
+  #       - Authentication
+  #     parameters:
+  #       - in: body
+  #         name: user login body
+  #         schema:
+  #           $ref: "#/definitions/userLogin"
+  #     responses:
+  #       200:
+  #         description: OK
+          
+  # /register:
+  #   post:
+      
+definitions:
+  version:
+    type: object
+    properties:
+      runtime:
+        type: string
+      buildDate:
+        type: string
+      releaseVersion:
+        type: string
+      commitHash:
+        type: string
+    # userLogin:
+    #   type: object
+    #   properties:
+    #     emailaddress:
+    #       type: string
+    #     password:
+    #       type: string
+    #     required:
+    #       - emailaddress
+    #       - password
