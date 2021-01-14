@@ -1,5 +1,5 @@
 build:
-	go build -o cmd/bin/noteable cmd/noteable/main.go 
+	go build -o bin/noteable cmd/noteable/main.go 
 test:
 unit-test:
 integration-test:
