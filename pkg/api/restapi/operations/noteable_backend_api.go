@@ -19,6 +19,7 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
+	"github.com/dimsumgurl/noteable-backend/pkg/api/restapi/operations/authentication"
 	"github.com/dimsumgurl/noteable-backend/pkg/api/restapi/operations/version"
 )
 
@@ -46,6 +47,12 @@ func NewNoteableBackendAPI(spec *loads.Document) *NoteableBackendAPI {
 
 		VersionGetVersionHandler: version.GetVersionHandlerFunc(func(params version.GetVersionParams) middleware.Responder {
 			return middleware.NotImplemented("operation version.GetVersion has not yet been implemented")
+		}),
+		AuthenticationPostLoginHandler: authentication.PostLoginHandlerFunc(func(params authentication.PostLoginParams) middleware.Responder {
+			return middleware.NotImplemented("operation authentication.PostLogin has not yet been implemented")
+		}),
+		AuthenticationPostRegisterHandler: authentication.PostRegisterHandlerFunc(func(params authentication.PostRegisterParams) middleware.Responder {
+			return middleware.NotImplemented("operation authentication.PostRegister has not yet been implemented")
 		}),
 	}
 }
@@ -83,6 +90,10 @@ type NoteableBackendAPI struct {
 
 	// VersionGetVersionHandler sets the operation handler for the get version operation
 	VersionGetVersionHandler version.GetVersionHandler
+	// AuthenticationPostLoginHandler sets the operation handler for the post login operation
+	AuthenticationPostLoginHandler authentication.PostLoginHandler
+	// AuthenticationPostRegisterHandler sets the operation handler for the post register operation
+	AuthenticationPostRegisterHandler authentication.PostRegisterHandler
 	// ServeError is called when an error is received, there is a default handler
 	// but you can set your own with this
 	ServeError func(http.ResponseWriter, *http.Request, error)
@@ -161,6 +172,12 @@ func (o *NoteableBackendAPI) Validate() error {
 
 	if o.VersionGetVersionHandler == nil {
 		unregistered = append(unregistered, "version.GetVersionHandler")
+	}
+	if o.AuthenticationPostLoginHandler == nil {
+		unregistered = append(unregistered, "authentication.PostLoginHandler")
+	}
+	if o.AuthenticationPostRegisterHandler == nil {
+		unregistered = append(unregistered, "authentication.PostRegisterHandler")
 	}
 
 	if len(unregistered) > 0 {
@@ -254,6 +271,14 @@ func (o *NoteableBackendAPI) initHandlerCache() {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}
 	o.handlers["GET"]["/version"] = version.NewGetVersion(o.context, o.VersionGetVersionHandler)
+	if o.handlers["POST"] == nil {
+		o.handlers["POST"] = make(map[string]http.Handler)
+	}
+	o.handlers["POST"]["/login"] = authentication.NewPostLogin(o.context, o.AuthenticationPostLoginHandler)
+	if o.handlers["POST"] == nil {
+		o.handlers["POST"] = make(map[string]http.Handler)
+	}
+	o.handlers["POST"]["/register"] = authentication.NewPostRegister(o.context, o.AuthenticationPostRegisterHandler)
 }
 
 // Serve creates a http handler to serve the API over HTTP

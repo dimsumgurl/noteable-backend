@@ -1,10 +1,13 @@
 package domain
 
+import "github.com/dimsumgurl/noteable-backend/pkg/api/models"
+
+// UserRepo defines the interface for UserRepo
 type UserRepo interface {
-	CreateCollection() error
-	Create() error
-	RetrieveByID() error
-	RetrieveByEmail() error
+	CreateUserCollection() error
+	CreateUser(*models.UserLogin) error
+	RetrieveUserByID(int64) (*models.UserAuth, error)
+	RetrieveUserByEmail(string) (*models.UserAuth, error)
 	Update() error
 	Delete() error
 }

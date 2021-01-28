@@ -10,8 +10,10 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/runtime/middleware"
 
+	authenticateHandler "github.com/dimsumgurl/noteable-backend/pkg/api/handlers/authenticate"
 	versionHandler "github.com/dimsumgurl/noteable-backend/pkg/api/handlers/version"
 	"github.com/dimsumgurl/noteable-backend/pkg/api/restapi/operations"
+	"github.com/dimsumgurl/noteable-backend/pkg/api/restapi/operations/authentication"
 	"github.com/dimsumgurl/noteable-backend/pkg/api/restapi/operations/version"
 )
 
@@ -38,18 +40,23 @@ func configureAPI(api *operations.NoteableBackendAPI) http.Handler {
 	api.JSONConsumer = runtime.JSONConsumer()
 
 	api.JSONProducer = runtime.JSONProducer()
-
-	if api.VersionGetVersionHandler == nil {
-		api.VersionGetVersionHandler = version.GetVersionHandlerFunc(func(params version.GetVersionParams) middleware.Responder {
-			return middleware.NotImplemented("operation version.GetVersion has not yet been implemented")
-		})
-	}
-
 	api.PreServerShutdown = func() {}
 
 	api.ServerShutdown = func() {}
+
+	//TODO: figure out what is a userService
+	authenticationHandler := authenticateHandler.NewAuthenticationHandler(nil)
+
 	api.VersionGetVersionHandler = version.GetVersionHandlerFunc(func(params version.GetVersionParams) middleware.Responder {
 		return versionHandler.GetVersion(params)
+	})
+
+	api.AuthenticationPostLoginHandler = authentication.PostLoginHandlerFunc(func(params authentication.PostLoginParams) middleware.Responder {
+		return authenticationHandler.Login(params)
+	})
+
+	api.AuthenticationPostRegisterHandler = authentication.PostRegisterHandlerFunc(func(params authentication.PostRegisterParams) middleware.Responder {
+		return authenticationHandler.Register(params)
 	})
 
 	return setupGlobalMiddleware(api.Serve(setupMiddlewares))

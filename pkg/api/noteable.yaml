@@ -29,24 +29,78 @@ paths:
           schema:
             $ref: "#/definitions/version"
           
-  # /login:
-  #   post:
-  #     summary: Authenticate a user
-  #     tags:
-  #       - Authentication
-  #     parameters:
-  #       - in: body
-  #         name: user login body
-  #         schema:
-  #           $ref: "#/definitions/userLogin"
-  #     responses:
-  #       200:
-  #         description: OK
+  /login:
+    post:
+      summary: Authenticate a user
+      tags:
+        - Authentication
+      parameters:
+        - in: body
+          name: user login body
+          schema:
+            $ref: "#/definitions/userAuth"
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: "#/definitions/userToken"
+        401:
+          description: unauthorized
+          schema:
+            $ref: "#/responses/unauthorized"
+        500: 
+          description: internal server error
+          schema:
+            $ref: "#/responses/internalServerError"
+
           
-  # /register:
-  #   post:
-      
+  /register:
+    post:
+      summary: Create a user
+      tags: 
+        - Authentication
+      parameters:
+        - in: body
+          name: user creation
+          schema:
+            $ref: "#/definitions/userAuth"
+      responses:
+        200:
+          description: OK
+        400: 
+          description: bad user request error
+          schema:
+            $ref: "#/responses/badRequest"
+        500: 
+          description: internal server error
+          schema:
+            $ref: "#/responses/internalServerError"
+            
+
+responses:
+  '200':
+    description: OK
+  badRequest:
+    description: Bad request from user
+    schema:
+      $ref: "#/definitions/error"
+  unauthorized:
+    description: Authorization information is missing or invalid.
+    schema:
+      $ref: "#/definitions/error"
+  internalServerError:
+    description: Internal Server Error  
+    schema:
+      $ref: "#/definitions/error"
+
+
 definitions:
+  error:
+    type: object
+    properties:
+      message:
+        type: string
+        
   version:
     type: object
     properties:
@@ -58,13 +112,20 @@ definitions:
         type: string
       commitHash:
         type: string
-    # userLogin:
-    #   type: object
-    #   properties:
-    #     emailaddress:
-    #       type: string
-    #     password:
-    #       type: string
-    #     required:
-    #       - emailaddress
-    #       - password
+        
+  userAuth:
+    type: object
+    properties:
+      emailaddress:
+        type: string
+      password:
+        type: string
+    required:
+      - emailaddress
+      - password
+      
+  userToken:
+    type: object
+    properties:
+      token:
+        type: string
