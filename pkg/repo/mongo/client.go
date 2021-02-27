@@ -29,7 +29,6 @@ func NewClient(clientOptions *ClientOptions) (*MongoClient, error) {
 	if err != nil {
 		return nil, err
 	}
-
 	return &MongoClient{ClientObject: client, Database: client.Database("mongo")}, nil
 }
 
@@ -43,10 +42,10 @@ func (c *MongoClient) Connect() error {
 		return err
 	}
 
-	defer func() {
-		if err = c.ClientObject.Disconnect(ctx); err != nil {
-			panic(err)
-		}
-	}()
+	// defer func() {
+	// 	if err = c.ClientObject.Disconnect(ctx); err != nil {
+	// 		panic(err)
+	// 	}
+	// }()
 	return err
 }

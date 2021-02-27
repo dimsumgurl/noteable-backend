@@ -12,18 +12,18 @@ import (
 // CreateUserCollection creates a user collection
 func (c *MongoClient) CreateUserCollection() error {
 	// If collection does not exist, then create
-	col, err := c.Database.ListCollectionNames(context.Background(), nil)
+	// col, err := c.Database.ListCollectionNames(context.Background(), nil)
+	// if err != nil {
+	// 	return err
+	// }
+	// for _, v := range col {
+	// 	if v == "User" {
+	// 		// return errors.New("Collection already exists")
+	// 	}
+	// }
+	err := c.Database.CreateCollection(context.Background(), "User")
 	if err != nil {
-
-	}
-	for _, v := range col {
-		if v == "User" {
-			break
-		}
-	}
-	err = c.Database.CreateCollection(context.Background(), "User")
-	if err != nil {
-
+		return err
 	}
 	return nil
 }
