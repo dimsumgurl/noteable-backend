@@ -7,5 +7,5 @@ clean:
 tools:
 lint:
 build-api-server:
-		swagger validate pkg/api/noteable.yaml
-		swagger generate server --exclude-main -f pkg/api/noteable.yaml -A noteable-backend -t pkg/api/
+	swagger validate pkg/api/noteable.yaml
+	swagger generate server --exclude-main -f pkg/api/noteable.yaml -A noteable-backend -t pkg/api/

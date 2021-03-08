@@ -1,8 +1,9 @@
 package domain
 
+import "github.com/dimsumgurl/noteable-backend/pkg/api/models"
+
 type UserService interface {
-	NewService() error
-	AddUser() error
+	AddUser(*models.UserAuth) error
 	AuthenticateUser() error
 	GetUserByID() error
 	GetUserByEmail() error

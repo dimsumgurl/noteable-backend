@@ -9,11 +9,15 @@ import (
 func main() {
 	app, err := app.NewApp()
 	if err != nil {
-		//do something
+		fmt.Print(err)
+	}
+	err = app.Initialize()
+	if err != nil {
+		fmt.Print(err)
 	}
 	err = app.Run()
 	if err != nil {
-		// do something
+		fmt.Print(err)
 	}
 	fmt.Print("app finished running")
 

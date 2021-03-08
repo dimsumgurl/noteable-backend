@@ -17,9 +17,9 @@ services:
     environment:
       ME_CONFIG_MONGODB_ADMINUSERNAME: root
       ME_CONFIG_MONGODB_ADMINPASSWORD: example
-  backend:
-    build: ./
-    ports:
-      - 8080:8080
-    depends_on:
-      - "mongo"
+  # backend:
+  #   build: ./
+  #   ports:
+  #     - 8080:8080
+  #   depends_on:
+  #     - "mongo"

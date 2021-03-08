@@ -51,9 +51,9 @@ func configureAPI(api *operations.NoteableBackendAPI) http.Handler {
 		return versionHandler.GetVersion(params)
 	})
 
-	api.AuthenticationPostLoginHandler = authentication.PostLoginHandlerFunc(func(params authentication.PostLoginParams) middleware.Responder {
-		return authenticationHandler.Login(params)
-	})
+	// api.AuthenticationPostLoginHandler = authentication.PostLoginHandlerFunc(func(params authentication.PostLoginParams) middleware.Responder {
+	// 	return authenticationHandler.Login(params)
+	// })
 
 	api.AuthenticationPostRegisterHandler = authentication.PostRegisterHandlerFunc(func(params authentication.PostRegisterParams) middleware.Responder {
 		return authenticationHandler.Register(params)

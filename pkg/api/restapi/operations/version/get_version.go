@@ -29,7 +29,7 @@ func NewGetVersion(ctx *middleware.Context, handler GetVersionHandler) *GetVersi
 	return &GetVersion{Context: ctx, Handler: handler}
 }
 
-/*GetVersion swagger:route GET /version Version getVersion
+/* GetVersion swagger:route GET /version Version getVersion
 
 Returns the Noteable version
 
@@ -45,14 +45,12 @@ func (o *GetVersion) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 		r = rCtx
 	}
 	var Params = NewGetVersionParams()
-
 	if err := o.Context.BindValidRequest(r, route, &Params); err != nil { // bind params
 		o.Context.Respond(rw, r, route.Produces, route, err)
 		return
 	}
 
 	res := o.Handler.Handle(Params) // actually handle the request
-
 	o.Context.Respond(rw, r, route.Produces, route, res)
 
 }

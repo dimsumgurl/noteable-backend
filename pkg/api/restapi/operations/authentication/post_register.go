@@ -29,7 +29,7 @@ func NewPostRegister(ctx *middleware.Context, handler PostRegisterHandler) *Post
 	return &PostRegister{Context: ctx, Handler: handler}
 }
 
-/*PostRegister swagger:route POST /register Authentication postRegister
+/* PostRegister swagger:route POST /register Authentication postRegister
 
 Create a user
 
@@ -45,14 +45,12 @@ func (o *PostRegister) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 		r = rCtx
 	}
 	var Params = NewPostRegisterParams()
-
 	if err := o.Context.BindValidRequest(r, route, &Params); err != nil { // bind params
 		o.Context.Respond(rw, r, route.Produces, route, err)
 		return
 	}
 
 	res := o.Handler.Handle(Params) // actually handle the request
-
 	o.Context.Respond(rw, r, route.Produces, route, res)
 
 }

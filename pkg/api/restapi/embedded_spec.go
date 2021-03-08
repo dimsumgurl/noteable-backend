@@ -141,6 +141,9 @@ func init() {
         },
         "password": {
           "type": "string"
+        },
+        "passwordHash": {
+          "type": "string"
         }
       }
     },
@@ -329,6 +332,9 @@ func init() {
           "type": "string"
         },
         "password": {
+          "type": "string"
+        },
+        "passwordHash": {
           "type": "string"
         }
       }

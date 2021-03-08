@@ -13,7 +13,8 @@ import (
 )
 
 // NewGetVersionParams creates a new GetVersionParams object
-// no default values defined in spec.
+//
+// There are no default values defined in the spec.
 func NewGetVersionParams() GetVersionParams {
 
 	return GetVersionParams{}

@@ -1,7 +1,6 @@
 package authenticate
 
 import (
-	"github.com/dimsumgurl/noteable-backend/pkg/api/models"
 	"github.com/dimsumgurl/noteable-backend/pkg/api/restapi/operations/authentication"
 	"github.com/dimsumgurl/noteable-backend/pkg/domain"
 	"github.com/go-openapi/runtime/middleware"
@@ -18,19 +17,19 @@ func NewAuthenticationHandler(userService domain.UserService) *AuthenticationHan
 }
 
 // Login will authenticate a user
-func (h *AuthenticationHandler) Login(params authentication.PostLoginParams) middleware.Responder {
-	token, err := h.userService.AuthenticateUser()
-	if err != nil {
-		// error handling
-	}
-	return authentication.NewPostLoginOK().WithPayload(&models.UserToken{
-		Token: token,
-	})
-}
+// func (h *AuthenticationHandler) Login(params authentication.PostLoginParams) middleware.Responder {
+// 	token, err := h.userService.AuthenticateUser()
+// 	if err != nil {
+// 		// error handling
+// 	}
+// 	return authentication.NewPostLoginOK().WithPayload(&models.UserToken{
+// 		Token: token,
+// 	})
+// }
 
 // Register will create a user
 func (h *AuthenticationHandler) Register(params authentication.PostRegisterParams) middleware.Responder {
-	err := h.userService.AddUser()
+	err := h.userService.AddUser(params.UserCreation)
 	if err != nil {
 		// error handling
 	}

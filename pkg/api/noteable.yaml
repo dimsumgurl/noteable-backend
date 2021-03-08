@@ -28,7 +28,7 @@ paths:
           description: OK
           schema:
             $ref: "#/definitions/version"
-          
+
   /login:
     post:
       summary: Authenticate a user
@@ -48,16 +48,15 @@ paths:
           description: unauthorized
           schema:
             $ref: "#/responses/unauthorized"
-        500: 
+        500:
           description: internal server error
           schema:
             $ref: "#/responses/internalServerError"
 
-          
   /register:
     post:
       summary: Create a user
-      tags: 
+      tags:
         - Authentication
       parameters:
         - in: body
@@ -67,18 +66,17 @@ paths:
       responses:
         200:
           description: OK
-        400: 
+        400:
           description: bad user request error
           schema:
             $ref: "#/responses/badRequest"
-        500: 
+        500:
           description: internal server error
           schema:
             $ref: "#/responses/internalServerError"
-            
 
 responses:
-  '200':
+  "200":
     description: OK
   badRequest:
     description: Bad request from user
@@ -89,10 +87,9 @@ responses:
     schema:
       $ref: "#/definitions/error"
   internalServerError:
-    description: Internal Server Error  
+    description: Internal Server Error
     schema:
       $ref: "#/definitions/error"
-
 
 definitions:
   error:
@@ -100,7 +97,7 @@ definitions:
     properties:
       message:
         type: string
-        
+
   version:
     type: object
     properties:
@@ -112,7 +109,7 @@ definitions:
         type: string
       commitHash:
         type: string
-        
+
   userAuth:
     type: object
     properties:
@@ -120,10 +117,11 @@ definitions:
         type: string
       password:
         type: string
+      passwordHash:
+        type: string
     required:
       - emailaddress
       - password
-      
   userToken:
     type: object
     properties:

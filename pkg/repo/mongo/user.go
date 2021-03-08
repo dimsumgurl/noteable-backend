@@ -29,7 +29,7 @@ func (c *MongoClient) CreateUserCollection() error {
 }
 
 // CreateUser creates a new user
-func (c *MongoClient) CreateUser(user *models.UserLogin) error {
+func (c *MongoClient) CreateUser(user *models.UserAuth) error {
 	col := c.getUserCollection()
 	_, err := col.InsertOne(context.Background(), user)
 	if err != nil {
